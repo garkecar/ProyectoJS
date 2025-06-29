@@ -1,110 +1,116 @@
-function Libro(titulo, autor, año) {
-  this.titulo = titulo;
-  this.autor = autor;
-  this.año = año;
-}
-
-let biblioteca = [];
-
-function iniciarBiblioteca() {
-  let opcion;
-
-  do {
-    opcion = prompt(
-      "BIBLIOTECA DIGITAL\n\n" +
-        "1. Agregar libro\n" +
-        "2. Mostrar libros\n" +
-        "3. Buscar libro\n" +
-        "4. Eliminar libro\n" +
-        "5. Salir\n\n" +
-        "Elige una opción:"
-    );
-
-    switch (opcion) {
-      case "1":
-        agregarLibro();
-        break;
-      case "2":
-        mostrarLibros();
-        break;
-      case "3":
-        buscarLibro();
-        break;
-      case "4":
-        eliminarLibro();
-        break;
-      case "5":
-        alert("¡Gracias por usar la Biblioteca Digital!");
-        break;
-      default:
-        alert("Opción inválida. Intenta de nuevo.");
-    }
-  } while (opcion !== "5");
-}
-
-function agregarLibro() {
-  const titulo = prompt("Ingrese el título del libro:");
-  const autor = prompt("Ingrese el autor:");
-  const anio = prompt("Ingrese el año de publicación:");
-
-  if (titulo && autor && anio) {
-    const nuevoLibro = new Libro(titulo, autor, anio);
-    biblioteca.push(nuevoLibro);
-    alert("Libro agregado con éxito.");
-  } else {
-    alert("Todos los campos son obligatorios.");
+class Libro {
+  constructor(titulo, autor, año) {
+    this.titulo = titulo;
+    this.autor = autor;
+    this.año = año;
   }
 }
+
+let biblioteca = JSON.parse(localStorage.getItem("biblioteca")) || [];
+
+const form = document.getElementById("formLibro");
+const listaLibros = document.getElementById("listaLibros");
+const btnMostrarTodos = document.getElementById("btnMostrarTodos");
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const titulo = document.getElementById("titulo").value.trim();
+  const autor = document.getElementById("autor").value.trim();
+  const año = document.getElementById("anio").value.trim();
+
+  if (titulo && autor && año) {
+    const nuevoLibro = new Libro(titulo, autor, año);
+    biblioteca.push(nuevoLibro);
+    guardarYMostrar();
+    form.reset();
+  }
+});
 
 function mostrarLibros() {
+  listaLibros.innerHTML = "";
+
   if (biblioteca.length === 0) {
-    alert("La biblioteca está vacía.");
+    listaLibros.innerHTML = "<li>No hay libros guardados.</li>";
   } else {
-    let lista = "Lista de libros:\n\n";
-    for (const libro of biblioteca) {
-      lista += `${libro.titulo} - ${libro.autor} (${libro.año})\n`;
-    }
-    alert(lista);
+    biblioteca.forEach((libro) => {
+      const li = document.createElement("li");
+      li.textContent = `${libro.titulo} - ${libro.autor} (${libro.año})`;
+      listaLibros.appendChild(li);
+    });
   }
+
+  document.getElementById("busqueda").value = "";
+  document.getElementById("eliminar").value = "";
+
+  btnMostrarTodos.style.display = "none";
 }
 
+biblioteca.forEach((libro) => {
+  const li = document.createElement("li");
+  li.textContent = `${libro.titulo} - ${libro.autor} (${libro.año})`;
+  listaLibros.appendChild(li);
+});
+btnMostrarTodos.style.display = "none";
+
 function buscarLibro() {
-  const tituloBuscar = prompt("Ingrese el título del libro a buscar:");
+  const tituloBuscado = document
+    .getElementById("busqueda")
+    .value.trim()
+    .toLowerCase();
+  if (!tituloBuscado) return;
 
-  if (!tituloBuscar) {
-    alert("Debes ingresar un título.");
-    return;
-  }
-
-  const libro = biblioteca.find(
-    (libro) => libro.titulo.toLowerCase() === tituloBuscar.toLowerCase()
+  const resultados = biblioteca.filter((libro) =>
+    libro.titulo.toLowerCase().includes(tituloBuscado)
   );
 
-  if (libro) {
-    alert(`Libro encontrado:\n${libro.titulo} - ${libro.autor} (${libro.año})`);
+  listaLibros.innerHTML = "";
+
+  if (resultados.length === 0) {
+    listaLibros.innerHTML = "<li>No se encontraron libros con ese título.</li>";
   } else {
-    alert("Libro no encontrado.");
+    resultados.forEach((libro) => {
+      const li = document.createElement("li");
+      li.textContent = `${libro.titulo} - ${libro.autor} (${libro.año})`;
+      listaLibros.appendChild(li);
+    });
   }
+  btnMostrarTodos.style.display = "flex";
 }
 
 function eliminarLibro() {
-  const tituloEliminar = prompt("Ingrese el título del libro a eliminar:");
+  const titulo = document.getElementById("eliminar").value.trim().toLowerCase();
+  if (!titulo) return;
 
-  if (!tituloEliminar) {
-    alert("Debes ingresar un título.");
-    return;
-  }
-
-  const index = biblioteca.findIndex(
-    (libro) => libro.titulo.toLowerCase() === tituloEliminar.toLowerCase()
-  );
+  const index = biblioteca.findIndex((l) => l.titulo.toLowerCase() === titulo);
 
   if (index !== -1) {
-    const libroEliminado = biblioteca.splice(index, 1)[0];
-    alert(`Libro eliminado: ${libroEliminado.titulo}`);
+    biblioteca.splice(index, 1);
+    guardarYMostrar();
   } else {
-    alert("No se encontró el libro.");
+    listaLibros.innerHTML = `<li>No se encontró el libro para eliminar.</li>`;
+    btnMostrarTodos.style.display = "flex";
   }
 }
 
-iniciarBiblioteca();
+function guardarYMostrar() {
+  localStorage.setItem("biblioteca", JSON.stringify(biblioteca));
+  mostrarLibros();
+}
+
+function ordenarPorTitulo() {
+  if (biblioteca.length === 0) {
+    listaLibros.innerHTML = "<li>No hay libros para ordenar.</li>";
+    return;
+  }
+
+  biblioteca.sort((a, b) => {
+    const tituloA = a.titulo.toLowerCase();
+    const tituloB = b.titulo.toLowerCase();
+    return tituloA.localeCompare(tituloB);
+  });
+
+  guardarYMostrar(); // Guarda ordenado en localStorage y actualiza la lista
+}
+
+document.addEventListener("DOMContentLoaded", mostrarLibros);

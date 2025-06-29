@@ -2,9 +2,63 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Biblioteca Digital</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="container">
+      <header>
+        <h1>Biblioteca Digital</h1>
+        <p>Administra tus libros fácilmente</p>
+      </header>
+
+      <section class="form-section">
+        <h2>Agregar nuevo libro</h2>
+        <form id="formLibro">
+          <input
+            type="text"
+            id="titulo"
+            placeholder="Título del libro"
+            required
+          />
+          <input type="text" id="autor" placeholder="Autor" required />
+          <input type="number" id="anio" placeholder="Año" required />
+          <button type="submit">Agregar libro</button>
+        </form>
+      </section>
+
+      <section class="acciones">
+        <h2>Buscar libro</h2>
+        <div class="acciones-grid" style="text-align: center"></div>
+        <input type="text" id="busqueda" placeholder="Buscar por título" />
+        <button onclick="buscarLibro()">Buscar</button>
+        <button onclick="ordenarPorTitulo()" id="btnOrdenar">
+          Ordenar A → Z
+        </button>
+        <h2>Eliminar libro</h2>
+        <input type="text" id="eliminar" placeholder="Eliminar por título" />
+        <button onclick="eliminarLibro()">Eliminar</button>
+      </section>
+      <br />
+      <hr />
+      <section class="lista">
+        <h2>Libros en la biblioteca</h2>
+        <button
+          onclick="mostrarLibros()"
+          id="btnMostrarTodos"
+          style="display: none"
+        >
+          Mostrar todos
+        </button>
+        <ul id="listaLibros"></ul>
+      </section>
+    </div>
+
+    <footer>
+      <p>Proyecto JavaScript</p>
+    </footer>
+
     <script src="script.js"></script>
   </body>
 </html>
