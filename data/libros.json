@@ -1,0 +1,32 @@
+[
+  {
+    "titulo": "Cien años de soledad",
+    "autor": "Gabriel García Márquez",
+    "año": 1967
+  },
+  { "titulo": "Rayuela", "autor": "Julio Cortázar", "año": 1963 },
+  { "titulo": "El Aleph", "autor": "Jorge Luis Borges", "año": 1949 },
+  { "titulo": "Pedro Páramo", "autor": "Juan Rulfo", "año": 1955 },
+  {
+    "titulo": "La casa de los espíritus",
+    "autor": "Isabel Allende",
+    "año": 1982
+  },
+  { "titulo": "Ficciones", "autor": "Jorge Luis Borges", "año": 1944 },
+  { "titulo": "El túnel", "autor": "Ernesto Sabato", "año": 1948 },
+  {
+    "titulo": "Crónica de una muerte anunciada",
+    "autor": "Gabriel García Márquez",
+    "año": 1981
+  },
+  {
+    "titulo": "La ciudad y los perros",
+    "autor": "Mario Vargas Llosa",
+    "año": 1963
+  },
+  {
+    "titulo": "El amor en los tiempos del cólera",
+    "autor": "Gabriel García Márquez",
+    "año": 1985
+  }
+]

@@ -4,125 +4,318 @@
   --magenta: #921549;
   --naranja: #cb680b;
   --rojo: #e74c3c;
-  --blanco: #ffffff;
+  --blanco: #fff;
+  --verde: #27ae60;
+  --amarillo: #f39c12;
 }
 
 body {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
-  background-color: var(--magenta);
+  background: linear-gradient(135deg, var(--magenta) 0%, var(--azul) 100%);
   color: var(--azul);
+  min-height: 100vh;
 }
 
 .container {
-  width: 95%;
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px;
+  max-width: 1200px;
   background-color: var(--naranja);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
 }
 
-header {
-  text-align: center;
-  margin-bottom: 30px;
+/* Logo y header */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-icon {
+  font-size: 4rem;
+  color: var(--azul);
+  background: var(--blanco);
+  padding: 20px;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
   margin: 0;
   color: var(--azul);
+  font-weight: bold;
 }
 
 p {
   color: #555;
+  font-size: 1.1rem;
 }
 
-form,
-.acciones,
-.lista {
-  margin-top: 20px;
+/* Menú principal */
+.menu-principal {
+  padding: 20px;
 }
 
-input,
-button {
-  padding: 10px;
-  margin: 5px 0;
-  width: 100%;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-}
-
-button {
-  background-color: var(--celeste);
-  color: white;
+.btn-menu {
+  background: linear-gradient(135deg, var(--celeste) 0%, var(--azul) 100%);
   border: none;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-button:hover {
-  background-color: var(--azul);
-}
-
-#btnMostrarTodos {
-  text-align: center;
-  margin-top: 15px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  background-color: var(--blanco);
-  margin: 5px 0;
-  padding: 12px;
-  border-left: 6px solid var(--celeste);
-  border-radius: 5px;
-}
-
-footer {
-  text-align: center;
-  padding: 15px;
-  background-color: var(--azul);
   color: white;
-  margin-top: 40px;
+  padding: 20px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-height: 120px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-menu:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, var(--azul) 0%, var(--magenta) 100%);
+  color: white;
+}
+
+.btn-menu i {
+  font-size: 2rem;
+}
+
+.btn-menu span {
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Secciones ocultas */
+.seccion-oculta {
+  display: none;
+}
+
+.seccion-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--celeste);
+}
+
+.seccion-header h2 {
+  margin: 0;
+  color: var(--azul);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Formularios y inputs */
+.form-label {
+  font-weight: 600;
+  color: var(--azul);
+}
+
+.form-control {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: var(--celeste);
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* Botones */
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--celeste);
+  border-color: var(--celeste);
+}
+
+.btn-primary:hover {
+  background-color: var(--azul);
+  border-color: var(--azul);
+}
+
+.btn-info {
+  background-color: var(--verde);
+  border-color: var(--verde);
+}
+
+.btn-warning {
+  background-color: var(--amarillo);
+  border-color: var(--amarillo);
+  color: white;
+}
+
+.btn-danger {
+  background-color: var(--rojo);
+  border-color: var(--rojo);
+}
+
+/* Lista de libros */
+#listaLibros li,
+#listaResultados li {
+  background-color: var(--blanco);
+  margin: 8px 0;
+  padding: 15px;
+  border-left: 6px solid var(--celeste);
+  border-radius: 8px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+#listaLibros li:hover,
+#listaResultados li:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Libro recomendado */
+.libro-recomendado {
+  background: linear-gradient(135deg, var(--verde) 0%, var(--celeste) 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  margin: 20px 0;
+}
+
+.libro-recomendado h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.8rem;
+}
+
+.libro-recomendado p {
+  margin: 5px 0;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.libro-recomendado .badge {
+  font-size: 1rem;
+  padding: 8px 16px;
+}
+
+/* Estadísticas */
+.estadistica-card {
+  background: var(--blanco);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.estadistica-card:hover {
+  transform: translateY(-5px);
+}
+
+.estadistica-numero {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--celeste);
+}
+
+.estadistica-label {
+  color: var(--azul);
+  font-weight: 500;
+}
+
+/* Contador de libros */
+#contadorLibros {
+  background: var(--celeste);
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+/* Footer */
+footer {
   font-size: 0.9rem;
+  margin-top: 40px;
 }
 
 /* Responsive */
-
 @media (max-width: 768px) {
-  header img {
-    width: 60px;
+  .logo-icon {
+    font-size: 3rem;
+    padding: 15px;
   }
 
   h1 {
+    font-size: 1.8rem;
+  }
+
+  .btn-menu {
+    min-height: 100px;
+    padding: 15px;
+  }
+
+  .btn-menu i {
     font-size: 1.5rem;
   }
 
-  .form-section,
-  .acciones,
-  .lista {
-    padding: 0 10px;
+  .btn-menu span {
+    font-size: 0.9rem;
   }
 
-  input,
-  button {
-    font-size: 0.95rem;
+  .seccion-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .libro-recomendado {
+    padding: 20px;
+  }
+
+  .libro-recomendado h3 {
+    font-size: 1.5rem;
   }
 }
-@media (min-width: 1024px) {
-  input,
-  button {
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+
+@media (max-width: 576px) {
+  .container {
+    margin: 10px;
+    border-radius: 12px;
   }
+
+  .menu-principal {
+    padding: 10px;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.seccion-oculta.activa {
+  display: block;
+  animation: fadeIn 0.5s ease;
+}
+
+.menu-principal.activo {
+  display: block;
+  animation: fadeIn 0.5s ease;
 }
